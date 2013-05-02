@@ -587,6 +587,94 @@ function commons_notify_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_unread_invitations'
+  $field_instances['user-user-field_unread_invitations'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => '0',
+      ),
+    ),
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_unread_invitations',
+    'label' => 'Unread Invitations',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => '11',
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_unread_messages'
+  $field_instances['user-user-field_unread_messages'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => '0',
+      ),
+    ),
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_unread_messages',
+    'label' => 'Unread Messages',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '0',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => '10',
+    ),
+  );
+
   // Exported field_instance: 'user-user-message_subscribe_email'
   $field_instances['user-user-message_subscribe_email'] = array(
     'bundle' => 'user',
@@ -620,7 +708,7 @@ function commons_notify_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 0,
+      'weight' => '0',
     ),
   );
 
@@ -634,6 +722,8 @@ function commons_notify_field_default_field_instances() {
   t('Target comment');
   t('Target nodes');
   t('This is the text of all messages of this type.');
+  t('Unread Invitations');
+  t('Unread Messages');
 
   return $field_instances;
 }

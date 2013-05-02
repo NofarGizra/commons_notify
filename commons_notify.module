@@ -88,18 +88,42 @@ function commons_notify_comment_insert($comment) {
 
 /**
  * Add 1 to a user's notification count.
+ *
+ * @param $type
+ *    Type of notification; 'message' and 'invitation' are supported.
  */
-function commons_notify_add_notification_item($account) {
+function commons_notify_add_notification_item($account, $type) {
   $wrapper = entity_metadata_wrapper('user', $account);
-  $wrapper->field_unread_count->set($wrapper->field_unread_count->value() + 1);
+
+  switch ($type) {
+    case 'message':
+      $wrapper->field_unread_count->set($wrapper->field_unread_messages->value() + 1);
+      break;
+    case 'invitation':
+      $wrapper->field_unread_count->set($wrapper->field_unread_invitations->value() + 1);
+      break;
+  }
+
   $wrapper->save();
 }
 
 /**
  * Subtract 1 from a user's notification count.
+ *
+ * @param $type
+ *    Type of notification; 'message' and 'invitation' are supported.
  */
-function commons_notify_remove_notification_item($account) {
+function commons_notify_remove_notification_item($account, $type) {
   $wrapper = entity_metadata_wrapper('user', $account);
-  $wrapper->field_unread_count->set($wrapper->field_unread_count->value() - 1);
+
+  switch ($type) {
+    case 'message':
+      $wrapper->field_unread_count->set($wrapper->field_unread_messages->value() - 1);
+      break;
+    case 'invitation':
+      $wrapper->field_unread_count->set($wrapper->field_unread_invitations->value() - 1);
+      break;
+  }
+
   $wrapper->save();
 }
