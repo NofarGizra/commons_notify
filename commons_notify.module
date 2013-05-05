@@ -97,10 +97,10 @@ function commons_notify_add_notification_item($account, $type) {
 
   switch ($type) {
     case 'message':
-      $wrapper->field_unread_count->set($wrapper->field_unread_messages->value() + 1);
+      $wrapper->field_unread_messages->set($wrapper->field_unread_messages->value() + 1);
       break;
     case 'invitation':
-      $wrapper->field_unread_count->set($wrapper->field_unread_invitations->value() + 1);
+      $wrapper->field_unread_invitations->set($wrapper->field_unread_invitations->value() + 1);
       break;
   }
 
@@ -118,12 +118,59 @@ function commons_notify_remove_notification_item($account, $type) {
 
   switch ($type) {
     case 'message':
-      $wrapper->field_unread_count->set($wrapper->field_unread_messages->value() - 1);
+      $wrapper->field_unread_messages->set($wrapper->field_unread_messages->value() - 1);
       break;
     case 'invitation':
-      $wrapper->field_unread_count->set($wrapper->field_unread_invitations->value() - 1);
+      $wrapper->field_unread_invitations->set($wrapper->field_unread_invitations->value() - 1);
       break;
   }
 
   $wrapper->save();
+}
+
+/**
+ * Implements hook_commons_utility_links().
+ *
+ * Add unread-invitations and unread-messages notifications to utility links.
+ */
+function commons_notify_commons_utility_links_alter(&$links) {
+  global $user;
+
+  if (empty($user->uid)) {
+    // Anonymous user.
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('user', $user);
+
+  $unread_invitations = $wrapper->field_unread_invitations->value();
+  $unread_messages = $wrapper->field_unread_messages->value();
+
+  if (empty($unread_invitations) && empty($unread_messages)) {
+    // No notifications to display.
+    return;
+  }
+
+  $new_links = array(
+    'name' => $links['name'],
+  );
+
+  if ($unread_invitations) {
+    $new_links['unread_invitations']= array(
+      'href' => 'contacts/invitations',
+      'title' => $unread_invitations . t (' Invs'),
+    );
+  }
+
+  if ($unread_messages) {
+    $new_links['unread_messages']= array(
+      'href' => 'messages',
+      'title' => $unread_messages . t (' Msgs'),
+    );
+  }
+
+  $new_links['logout'] = $links['logout'];
+  $new_links['settings'] = $links['settings'];
+
+  $links = $new_links;
 }
