@@ -93,7 +93,7 @@ function commons_notify_comment_insert($comment) {
  *    Type of notification; 'message' and 'invitation' are supported.
  */
 function commons_notify_add_notification_item($account, $type) {
-  $wrapper = entity_metadata_wrapper('user', $account);
+  $wrapper = entity_metadata_wrapper('user', $account->uid);
 
   switch ($type) {
     case 'message':
@@ -114,7 +114,7 @@ function commons_notify_add_notification_item($account, $type) {
  *    Type of notification; 'message' and 'invitation' are supported.
  */
 function commons_notify_remove_notification_item($account, $type) {
-  $wrapper = entity_metadata_wrapper('user', $account);
+  $wrapper = entity_metadata_wrapper('user', $account->uid);
 
   switch ($type) {
     case 'message':
@@ -157,14 +157,14 @@ function commons_notify_commons_utility_links_alter(&$links) {
 
   if ($unread_invitations) {
     $new_links['unread_invitations']= array(
-      'href' => 'contacts/invitations',
+      'href' => 'user/' . $user->uid . '/contacts/invitations',
       'title' => $unread_invitations . t (' Invitations'),
     );
   }
 
   if ($unread_messages) {
     $new_links['unread_messages']= array(
-      'href' => 'messages',
+      'href' => 'user/' . $user->uid . '/contacts/messages',
       'title' => $unread_messages . t (' Messages'),
     );
   }
