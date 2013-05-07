@@ -158,14 +158,14 @@ function commons_notify_commons_utility_links_alter(&$links) {
   if ($unread_invitations) {
     $new_links['unread_invitations']= array(
       'href' => 'user/' . $user->uid . '/contacts/invitations',
-      'title' => $unread_invitations . t (' Invitations'),
+      'title' => t('@count Invitations', array('@count' => $unread_invitations)),
     );
   }
 
   if ($unread_messages) {
     $new_links['unread_messages']= array(
       'href' => 'user/' . $user->uid . '/contacts/messages',
-      'title' => $unread_messages . t (' Messages'),
+      'title' => t('@count Messages', array('@count' => $unread_messages)),
     );
   }
 
