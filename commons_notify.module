@@ -160,16 +160,16 @@ function commons_notify_commons_utility_links_alter(&$links) {
   );
 
   if ($unread_invitations) {
-    $new_links['unread_invitations']= array(
+    $new_links['unread-invitations']= array(
       'href' => 'user/' . $user->uid . '/contacts/invitations',
-      'title' => t('@count Invitations', array('@count' => $unread_invitations)),
+      'title' => t('@count @invitations', array('@count' => $unread_invitations, '@invitations' => format_plural($unread_invitations, 'Invitation', 'Invitations'))),
     );
   }
 
   if ($unread_messages) {
-    $new_links['unread_messages']= array(
+    $new_links['unread-messages']= array(
       'href' => 'user/' . $user->uid . '/contacts/messages',
-      'title' => t('@count Messages', array('@count' => $unread_messages)),
+      'title' => t('@count @messages', array('@count' => $unread_messages, '@messages' => $unread_messages, format_plural($unread_messages, 'Message', 'Messages'))),
     );
   }
 
