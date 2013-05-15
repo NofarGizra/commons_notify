@@ -173,7 +173,7 @@ function commons_notify_commons_utility_links_alter(&$links) {
   if ($unread_messages) {
     $new_links['unread-messages']= array(
       'href' => 'user/' . $user->uid . '/contacts/messages',
-      'title' => t('@count @messages', array('@count' => $unread_messages, '@messages' => $unread_messages, format_plural($unread_messages, 'Message', 'Messages'))),
+      'title' => t('@count @messages', array('@count' => $unread_messages, '@messages' => format_plural($unread_messages, 'Message', 'Messages'))),
     );
   }
 
