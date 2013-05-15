@@ -140,10 +140,14 @@ function commons_notify_remove_notification_item($account, $type) {
 function commons_notify_commons_utility_links_alter(&$links) {
   global $user;
 
-  if (empty($user->uid)) {
+  if (user_is_anonymous()) {
     // Anonymous user.
     return;
   }
+
+  $new_links = array(
+    'name' => $links['name'],
+  );
 
   $wrapper = entity_metadata_wrapper('user', $user);
 
@@ -151,13 +155,13 @@ function commons_notify_commons_utility_links_alter(&$links) {
   $unread_messages = $wrapper->field_unread_messages->value();
 
   if (empty($unread_invitations) && empty($unread_messages)) {
-    // No notifications to display.
-    return;
+    // Provide a default mailbox icon pointing to the private messages UI
+    // when there are no unread messages or invitations.
+    $new_links['no-unread-messages'] = array(
+      'href' => 'user/' . $user->uid . '/contacts/messages',
+      'title' => t('No unread messages'),
+    );
   }
-
-  $new_links = array(
-    'name' => $links['name'],
-  );
 
   if ($unread_invitations) {
     $new_links['unread-invitations']= array(
